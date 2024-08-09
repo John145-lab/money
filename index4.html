@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #00aaff, #ff6f00);
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            text-align: center;
+            color: #ff6f00;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .order-details {
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+    <!-- Include EmailJS SDK -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("o3_eBjDbOrOKgyIcS");
+        })();
+
+        function sendOrderConfirmation() {
+            const templateParams = {
+                orderNumber: '2023-08-0056',
+                deliveryTime: '3 Days'
+            };
+
+            emailjs.send('service_md8ouvo', 'template_fclz7u8', templateParams)
+                .then(function(response) {
+                    console.log('Success:', response);
+                }, function(error) {
+                    console.log('Error:', error);
+                });
+        }
+
+        window.onload = function() {
+            sendOrderConfirmation();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Thank You for Your Purchase!</h1>
+        <p>We appreciate your order. Here are the details:</p>
+        
+        <div class="order-details">
+            <p><strong>Order Number:</strong> 2023-08-0056</p>
+            <p><strong>Estimated Delivery Time:</strong> 3 Days</p>
+        </div>
+        <p><strong>Please contact the site creators with your order number to arrange the delivery: <a href="mailto:baradur24@gmail.com" style="color: #ff6f00;">baradur24@gmail.com</a></strong></p>
+
+        <div class="footer">
+            <p>Thank you for shopping with us!</p>
+            <p><strong>The Fashionista Heaven Team</strong></p>
+        </div>
+    </div>
+</body>
+</html>
